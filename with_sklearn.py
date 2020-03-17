@@ -5,6 +5,9 @@ import nltk.corpus  # sample text for performing tokenization
 from nltk.corpus import wordnet as wn
 from nltk.probability import FreqDist
 from nltk.tokenize import word_tokenize  # Passing the string text into word tokenize for breaking the sentences
+from sklearn.feature_extraction.text import CountVectorizer
+from scipy.stats import describe
+import numpy as np
 
 #   raw_file = open("recipes_raw_nosource_epi.json", 'r')
 #   raw_file = re.sub("[^a-zA-Z ]+", "", raw_file.read())
@@ -29,64 +32,28 @@ measurement_blacklist = ['cup', 'cups', 'ml', 'tablespoon', 'tablespoons',
                          'extralarge', 'inch', 'inches']
 
 all_ingredient_names = []
+ingredients = []
+titles = []
 i = 0
 for key in data:  # iterate through every recipe!
-    # Lots of data cleaning/formatting.
-    # Tokenize and convert to lower case with `.lower()`.
-    title = word_tokenize(data[key]['title'].lower())
-    # Convert token tuple list into just a list.
-    title_pos = list(dict(nltk.pos_tag(title)).values())
-
-    ingredients = data[key]['ingredients']
-    ingredient_names = []
-    for k in range(len(ingredients)):
-        # The `re.sub` here removes everything except letters and spaces.
-        ingredient_name = re.sub("[^a-zA-Z ]+", "", ingredients[k])
-        # Strip off 'or' options
-        ingredient_name = ingredient_name.split(" or ")[0]
-
-        # Iterate through all ingredients in list and remove numbers and measurements.
-        # Strip out any measurement references.
-        # The `strip() removes leading and trailing whitespace - so easy!
-        for l in measurement_blacklist:
-            ingredient_name = (' ' + ingredient_name).lower().replace(' '+l+' ', '')
-
-        tagged_name = dict((nltk.pos_tag(nltk.word_tokenize(ingredient_name))))
-        ingredient_name = ''
-        to_delete = []
-        for m in tagged_name:
-            if tagged_name[m] != 'NN':
-                to_delete.append(m)
-
-        # If it is not a noun, delete that entry
-        for zebra in to_delete:
-            del(tagged_name[zebra])
-
-        for m in tagged_name:
-            ingredient_name += ' ' + m
-        ingredient_name = ingredient_name.strip()
-
-        ingredient_names.append(ingredient_name)
-        all_ingredient_names.append(ingredient_name)
-
-    data_tokenized[key] = {}
-    data_tokenized[key]['title'] = title
-    data_tokenized[key]['title_pos'] = title_pos
-    data_tokenized[key]['ingredient_names'] = ingredient_names
+    ing_temp = ''
+    for ingredient in data[key]['ingredients']:
+        ing_temp += ingredient + ' '
+    titles.append(data[key]['title'])
+    ingredients.append(ing_temp)
     i += 1
-    if i == 10:
+    if i == 50:
         break
-    print(i)
 
-# Get rid of duplicate names in `all_ingredient_names`.
-all_ingredient_names = list(set(all_ingredient_names))
+titles_train = titles[:39]
+titles_test = titles[40:]
+ing_train = titles[:39]  # ingredients training and test set
+ing_test = titles[40:]   # ingredients
 
-# Now we want to get the probability that a title word appears for a given ingredient word.
+vectorizer = CountVectorizer(min_df=0)
+vectorizer.fit(ingredients)
+ingredient_vector = vectorizer.transform(ingredients).toarray()
 
-# for key in data_tokenized:
-#     for i_name in all_ingredient_names:
-#         if i_name in data_tokenized[key]['ingredients']:
-
-print(all_ingredient_names)
-print(data_tokenized)
+print(np.shape(ingredient_vector))
+print(np.max(ingredient_vector))
 
