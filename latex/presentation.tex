@@ -1,0 +1,67 @@
+\documentclass{beamer}
+\usetheme{Boadilla}
+
+\title{UCLA Extension Machine Learning:\\
+	Recipe Naming Using Text Analysis}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Concept and Data Source}
+
+	Concept: Given a recipe (consisting of a list of ingredients and a set
+	of corresponding instruction set), produce an accurate title for the
+	recipe.\\
+	\medskip
+	Main data source:
+	\begin{itemize}
+		\item ~250,000 recipes scraped from various websites
+			(foodnetwork.com, epicurious.com, allrecipes.com). The
+			program that created this set is MIT lisenced and was
+			created by Ryan T. Lee (github: rtlee9), and the
+			dataset used is ODC lisenced.
+			
+		\item Dataset is a json file with recipe key and corresponding
+			title, ingredient list, and instruction set.
+	\end{itemize}
+\end{frame}
+			
+
+\begin{frame}
+	\frametitle{Basic concept: vectorizing text}
+	\begin{itemize}
+		\item The typical starting point for text-based machine
+			learning is to look at the words in a text, and how
+			those words correspond to features that you are trying
+			to predict.
+		\item In order to do any form of efficient computational
+			analysis, the text that you want to analyze must be
+			turned into a vector. 
+		\item There exist many different ways to vectorize text.
+			Methods to vectorize text based on letters, words,
+			relationships between words, proximity between words,
+			etc.
+
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+
+	\frametitle{What does a text vector look like?}
+	\begin{enumerate}
+	
+		\item There exist many different ways to vectorize text.
+			Methods to vectorize text based on letters, words,
+			relationships between words, proximity between words,
+			etc.
+
+	\end{enumerate}
+\end{frame}
+
+
+\end{document}

@@ -1,5 +1,5 @@
 import json  # for dealing with json files
-import re    # regular expression library
+import re  # regular expression library
 import pandas as pd
 import nltk.corpus  # sample text for performing tokenization
 from nltk.corpus import wordnet as wn
@@ -49,7 +49,7 @@ for key in data:  # iterate through every recipe!
         # Strip out any measurement references.
         # The `strip() removes leading and trailing whitespace - so easy!
         for l in measurement_blacklist:
-            ingredient_name = (' ' + ingredient_name).lower().replace(' '+l+' ', '')
+            ingredient_name = (' ' + ingredient_name).lower().replace(' ' + l + ' ', '')
 
         tagged_name = dict((nltk.pos_tag(nltk.word_tokenize(ingredient_name))))
         ingredient_name = ''
@@ -60,7 +60,7 @@ for key in data:  # iterate through every recipe!
 
         # If it is not a noun, delete that entry
         for zebra in to_delete:
-            del(tagged_name[zebra])
+            del (tagged_name[zebra])
 
         for m in tagged_name:
             ingredient_name += ' ' + m
@@ -80,13 +80,21 @@ for key in data:  # iterate through every recipe!
 
 # Get rid of duplicate names in `all_ingredient_names`.
 all_ingredient_names = list(set(all_ingredient_names))
-
 # Now we want to get the probability that a title word appears for a given ingredient word.
+ingredient_title_counts = {}
 
-# for key in data_tokenized:
-#     for i_name in all_ingredient_names:
-#         if i_name in data_tokenized[key]['ingredients']:
+for i_name in all_ingredient_names:
+    ingredient_title_counts.update({i_name:{}})
 
-print(all_ingredient_names)
-print(data_tokenized)
+#print(ingredient_title_counts)
 
+for i_name in all_ingredient_names:
+    for key in data_tokenized:
+        for title_word in data_tokenized[key]['title']:
+            if title_word in ingredient_title_counts[i_name]:
+                ingredient_title_counts[i_name][title_word] += 1
+            else:
+                ingredient_title_counts[i_name].update({title_word:1})
+
+print(ingredient_title_counts['butter'])
+# print(data_tokenized)
