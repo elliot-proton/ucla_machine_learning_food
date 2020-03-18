@@ -1,9 +1,9 @@
 \documentclass{beamer}
 \usetheme{Boadilla}
 
-\title{UCLA Extension Machine Learning:\\
-	Recipe Naming Using Text Analysis}
-
+\title{Recipe Naming Using Text Analysis}
+\author{Elliot Lehman}
+\institute{UCLA Extension}
 \begin{document}
 
 \begin{frame}
@@ -12,7 +12,7 @@
 
 
 \begin{frame}
-	\frametitle{Concept and Data Source}
+	\frametitle{Concept and data source}
 
 	Concept: Given a recipe (consisting of a list of ingredients and a set
 	of corresponding instruction set), produce an accurate title for the
@@ -48,20 +48,63 @@
 			etc.
 
 	\end{itemize}
+	\bigskip
+
+
+	\noindent\fbox{%
+    	\parbox{\textwidth}{%
+	\begin{itemize}
+		\item The goal is to input a \textit{recipe vector} and output
+			a \textit{title vector}. 
+
+			\medskip
+			Note: We will treat these as
+			different vector spaces so, in general, a \textit{recipe
+			vector} does not equal a \textit{title vector}.
+	\end{itemize}
+    		}%
+	}
 \end{frame}
 
 \begin{frame}
+	\frametitle{A toy example of text vectorization}
+	Given the below dataset, what would our \textit{recipe vector} and \textit{title vector} look like?
+	\begin{center}
+		\begin{tabular}{ |c c | c|}
+			\hline
+			Recipe & & Title \\
+			\hline\hline
+			bread & avocado & avocado toast \\
+			\hline
+			lettuce & avocado & salad \\		
+			\hline
+		\end{tabular}
+	\end{center}
 
-	\frametitle{What does a text vector look like?}
 	\begin{enumerate}
 	
-		\item There exist many different ways to vectorize text.
-			Methods to vectorize text based on letters, words,
-			relationships between words, proximity between words,
-			etc.
+		\item Define your basis vectors.
+		\begin{itemize}
+			\item There are 3 unique words in the Recipe section,
+				meaning that any recipe using ingredients in
+				this data set can be represented by a vector of
+				size 3.
+			\item The word ``avocado'' would be represented by the vector $(1,0,0)_r$, 
+				``bread'' by $(0,1,0)_r$, and lettuce by $(0,0,1)_r$
+		\end{itemize}
+		\item Vectors of recipes.
+		\begin{itemize}
+			\item Now that basis vectors are defined, we can add them to get recipes.
+			\item The phrase ``avocado lettuce'' is therefore represented by $(1,0,1)_r$.
+			\itme The phrase ``avocado bread lettuce'' is the vector $(1,1,1)_r$.
+		\end{itemize}
 
 	\end{enumerate}
 \end{frame}
 
+\begin{frame}
+	\frametitle{We have vectors... now what?}
+
+\end{frame}
 
 \end{document}

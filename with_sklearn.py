@@ -1,5 +1,5 @@
 import json  # for dealing with json files
-import re    # regular expression library
+import re  # regular expression library
 import pandas as pd
 import nltk.corpus  # sample text for performing tokenization
 from nltk.corpus import wordnet as wn
@@ -46,32 +46,36 @@ for key in data:  # iterate through every recipe!
     if i == 50:
         break
 
-
 vectorizer_ing = CountVectorizer(min_df=0)
 vectorizer_title = CountVectorizer(min_df=0)
 # Define training & test sets.
 titles_train = titles[:39]
 titles_test = titles[40:]
 ing_train = ingredients[:39]  # ingredients training set
-ing_test = ingredients[40:]   # ingredients test set
+ing_test = ingredients[40:]  # ingredients test set
 
-vectorizer_ing.fit(ing_train)
-vectorizer_title.fit(titles_train)
-print(vectorizer_ing.vocabulary_)
-print(vectorizer_title.vocabulary_)
-x_train = vectorizer_ing.transform(ing_train)
-x_test = vectorizer_ing.transform(ing_test)
-y_train = vectorizer_title.transform(titles_train)
-y_test = vectorizer_title.transform(titles_test)
-
+v_ing = vectorizer_ing.fit(ing_train)
+v_title = vectorizer_title.fit(titles_train)
+print(v_ing.get_feature_names())
+print(v_ing.toarray())
+x_train = vectorizer_ing.transform(ing_train).toarray()
+x_test = vectorizer_ing.transform(ing_test).toarray()
+y_train = vectorizer_title.transform(titles_train).toarray()
+y_test = vectorizer_title.transform(titles_test).toarray()
 print(np.shape(x_train))
 print(np.shape(y_train))
+first = True
+for row in np.arange(np.shape(x_train)[0]):
+    x = np.array(x_train[row].transpose())  # Transpose so we have a column to multiply.
+    x = x.reshape(np.size(x), 1)            # Reshape for matrix multiplication
+    y = np.array(y_train[row])
+    y = y.reshape(1, np.size(y))
 
-for i in np.arange(np.shape(x_train)[0]):
-    for j in np.arange(np.shape(x_train)[1]):
+    if first:
+        occurrence_matrix = x * y           # Initial occurrences
+        first = False
+    else:
+        occurrence_matrix += x * y          # Sum up occurrences.
 
-
-# classifier = LogisticRegression()
-# classifier.fit(x_train, y_train)
-# classifier.fit(x_train, titles_train)
-
+print(vectorizer_ing.fit(ing_train))
+print(occurrence_matrix)
