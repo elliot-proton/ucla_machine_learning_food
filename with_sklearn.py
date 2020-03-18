@@ -17,7 +17,22 @@ import numpy as np
 #   print(global_dict)
 
 with open("recipes_raw_nosource_epi.json") as file:
-    data = json.load(file)
+    data1 = json.load(file)
+
+with open("recipes_raw_nosource_ar.json") as file:
+    data2 = json.load(file)
+
+with open("recipes_raw_nosource_fn.json") as file:
+    data3 = json.load(file)
+
+def merge(dict1, dict2):
+    # Function that combines two dictionaries.
+    res = {**dict1, **dict2}
+    return res
+
+
+data = merge(data1, data2)
+data = merge(data, data3)
 
 # Initialize the "tokenized" dictionary that will hold most of our text data.
 data_tokenized = {}
@@ -71,23 +86,23 @@ y_test = vectorizer_title.fit_transform(titles_test).toarray()
 first = True
 for row in np.arange(np.shape(x_train)[0]):
     x = np.array(x_train[row].transpose())  # Transpose so we have a column to multiply.
-    x = x.reshape(np.size(x), 1)            # Reshape for matrix multiplication
+    x = x.reshape(np.size(x), 1)  # Reshape for matrix multiplication
     y = np.array(y_train[row])
     y = y.reshape(1, np.size(y))
 
     if first:
-        occurrence_matrix = x * y           # Initial occurrences
+        occurrence_matrix = x * y  # Initial occurrences
         first = False
     else:
-        occurrence_matrix += x * y          # Sum up occurrences.
+        occurrence_matrix += x * y  # Sum up occurrences.
 
-#max_indices = np.unravel_index(np.argpartition(occurrence_matrix, -5, axis=None)[-5:], occurrence_matrix.shape)
-#print(max_indices[1][1])
+# max_indices = np.unravel_index(np.argpartition(occurrence_matrix, -5, axis=None)[-5:], occurrence_matrix.shape)
+# print(max_indices[1][1])
 max_index = np.unravel_index(np.argmax(occurrence_matrix, axis=None), occurrence_matrix.shape)
 
 om = copy.deepcopy(occurrence_matrix)
 max_indices = []
-for i in np.arange(10): # this loop finds max index values in the occurrence matrix
+for i in np.arange(10):  # this loop finds max index values in the occurrence matrix
     temp_max_index = np.unravel_index(np.argmax(om, axis=None), om.shape)
     max_indices.append(temp_max_index)
     print(om[temp_max_index])
@@ -95,8 +110,8 @@ for i in np.arange(10): # this loop finds max index values in the occurrence mat
 
 print(max_indices)
 print('testing')
-#print(om[max_index])
-#print(max_index)
+# print(om[max_index])
+# print(max_index)
 for index in max_indices:
     print(index)
     ing = all_ingredient_words[index[0]]

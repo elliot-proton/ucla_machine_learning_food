@@ -30,7 +30,7 @@ fdist = FreqDist(token)
 fdist1 = dict(fdist.most_common(10))
 print(fdist1)
 
-#plt.bar(range(len(fdist1)), list(fdist1.values()), align='center')
-#plt.xticks(range(len(fdist1)), list(fdist1.keys()))
-#plt.show()
+plt.bar(range(len(fdist1)), list(fdist1.values()), align='center')
+plt.xticks(range(len(fdist1)), list(fdist1.keys()))
+plt.show()
 
