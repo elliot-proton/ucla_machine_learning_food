@@ -54,14 +54,14 @@ titles_test = titles[40:]
 ing_train = ingredients[:39]  # ingredients training set
 ing_test = ingredients[40:]  # ingredients test set
 
-v_ing = vectorizer_ing.fit_transform(ing_train)
-v_title = vectorizer_title.fit_transform(titles_train)
-print(vectorizer_ing.get_feature_names())
+v_ing = vectorizer_ing.fit(ing_train)
+v_title = vectorizer_title.fit(titles_train)
+print(v_ing.get_feature_names())
 print(v_ing.toarray())
-x_train = vectorizer_ing.fit_transform(ing_train).toarray()
-x_test = vectorizer_ing.fit_transform(ing_test).toarray()
-y_train = vectorizer_title.fit_transform(titles_train).toarray()
-y_test = vectorizer_title.fit_transform(titles_test).toarray()
+x_train = vectorizer_ing.transform(ing_train).toarray()
+x_test = vectorizer_ing.transform(ing_test).toarray()
+y_train = vectorizer_title.transform(titles_train).toarray()
+y_test = vectorizer_title.transform(titles_test).toarray()
 print(np.shape(x_train))
 print(np.shape(y_train))
 first = True
@@ -77,7 +77,5 @@ for row in np.arange(np.shape(x_train)[0]):
     else:
         occurrence_matrix += x * y          # Sum up occurrences.
 
-print(np.shape(occurrence_matrix))
-print(np.max(occurrence_matrix))
-max_index = np.unravel_index(np.argmax(occurrence_matrix, axis=None), occurrence_matrix.shape)
-print(max_index)
+print(vectorizer_ing.fit(ing_train))
+print(occurrence_matrix)
