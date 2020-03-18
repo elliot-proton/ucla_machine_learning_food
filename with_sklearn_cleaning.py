@@ -25,6 +25,7 @@ with open("recipes_raw_nosource_ar.json") as file:
 with open("recipes_raw_nosource_fn.json") as file:
     data3 = json.load(file)
 
+
 def merge(dict1, dict2):
     # Function that combines two dictionaries.
     res = {**dict1, **dict2}
@@ -62,6 +63,9 @@ for key in data:  # iterate through every recipe!
     if i == 50:
         break
 
+
+# these bad bois are going to create the basis vectors from all the
+# words we throw at them
 vectorizer_ing = CountVectorizer(min_df=0)
 vectorizer_title = CountVectorizer(min_df=0)
 # Define training & test sets.
@@ -100,8 +104,32 @@ for row in np.arange(np.shape(x_train)[0]):
 # print(max_indices[1][1])
 max_index = np.unravel_index(np.argmax(occurrence_matrix, axis=None), occurrence_matrix.shape)
 
+title_word_blacklist_indices = []
+recipe_word_blacklist_indices = []
 
-om = copy.deepcopy(occurrence_matrix)
+for word in all_ingredient_words:
+    # loop through all words, and if they are on the blacklist, add their indices to the blacklist indices list
+    w = word_tokenize(word)
+    word_type = nltk.pos_tag(w)[0][1]
+    print(word_type)
+    if word_type != 'NN' or word in measurement_blacklist:
+        #  Get indices of words that are not nouns or are measurements.
+        recipe_word_blacklist_indices.append(all_ingredient_words.index(word))
+
+for index in recipe_word_blacklist_indices:
+    occurrence_matrix[index, :] = 0  # zero out any row that is blacklisted
+
+for word in all_title_words:
+    # loop through all words, and if they are on the blacklist, add their indices to the blacklist indices list
+    w = word_tokenize(word)  # this may not be necessary, but NTLK likes its tokens
+    word_type = nltk.pos_tag(w)[0][1]  # assign the part of speech of the given word. The [0][1]
+    # just extracts the actual part of speech assignment
+    print(word_type)
+    if word_type != 'NN' or word in measurement_blacklist:
+        #  Get indices of words that are not nouns or are measurements.
+        title_word_blacklist_indices.append(all_title_words.index(word))  # append those to the blacklist list
+
+om = copy.deepcopy(occurrence_matrix)  # create a copy so things can be deleted and not lose data from the main list
 max_indices = []
 for i in np.arange(10):  # this loop finds max index values in the occurrence matrix
     temp_max_index = np.unravel_index(np.argmax(om, axis=None), om.shape)
