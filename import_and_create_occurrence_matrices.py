@@ -11,6 +11,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
 from scipy.stats import describe
 import numpy as np
+import pickle
 
 #   raw_file = open("recipes_raw_nosource_epi.json", 'r')
 #   raw_file = re.sub("[^a-zA-Z ]+", "", raw_file.read())
@@ -102,7 +103,7 @@ print("reshaping vectors\n")
 i = 0
 for row in np.arange(np.shape(x_train)[0]):
     time1 = time.process_time()
-    print("progress: ", 100*i/np.shape(x_train)[0], "%")
+    print("progress: ", 100 * i / np.shape(x_train)[0], "%")
     # Define vectors relating to words, word frequencies, grammar, layout, etc...
 
     # x corresponds to the word megavector
@@ -122,10 +123,8 @@ for row in np.arange(np.shape(x_train)[0]):
         occurrence_matrix += x * y  # Sum up occurrences.
         title_word_number_occurrence_matrix += x * y2  # Sum up occurrences.
     time2 = time.process_time()
-    print("iteration time: ", time2-time1)
+    print("iteration time: ", time2 - time1)
     i += 1
-
-
 
 title_word_blacklist_indices = []
 recipe_word_blacklist_indices = []
@@ -157,6 +156,19 @@ for index in recipe_word_blacklist_indices:
 
 for index in title_word_blacklist_indices:
     occurrence_matrix_blacklisted[:, index] = 0  # zero out any row that is blacklisted
+
+# save occurrence matrices and keys for the matrix rows and columns
+with open("title_word_key.pickle", "wb") as title_word_file:
+    pickle.dump(all_title_words, title_word_file)
+with open("ingredient_word_key.pickle", "wb") as ingredient_word_file:
+    pickle.dump(all_ingredient_words, ingredient_word_file)
+with open("occurrence_matrix.pickle", "wb") as om_file:
+    pickle.dump(occurrence_matrix, om_file)
+with open("occurrence_matrix_blacklisted.pickle", "wb") as omb_file:
+    pickle.dump(occurrence_matrix_blacklisted, omb_file)
+
+
+
 
 # create a copy so things can be deleted and not lose data from the main list
 omb = copy.deepcopy(occurrence_matrix_blacklisted)
