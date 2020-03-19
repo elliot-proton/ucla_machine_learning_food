@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2020.3.7)  17 MAR 2020 22:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2020.3.7)  18 MAR 2020 20:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -808,9 +808,24 @@ Dictionary: translator-numbers-dictionary, Language: English
 (/usr/share/texmf-dist/tex/latex/translator/translator-theorem-dictionary-Engli
 sh.dict
 Dictionary: translator-theorem-dictionary, Language: English 
-) (./presentation.nav) [1
+) (./presentation.nav)
+Overfull \hbox (71.35986pt too wide) in paragraph at lines 7--7
+ [][][][]  
+ []
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
+
+Overfull \hbox (71.35986pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \hbox (71.35986pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[2
 
 ]
 LaTeX Font Info:    Trying to load font information for U+msa on input line 67.
@@ -835,15 +850,26 @@ Overfull \hbox (6.79999pt too wide) in paragraph at lines 67--67
 []  
  []
 
+
+Overfull \hbox (71.35986pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
 [3
 
-] [4
+]
+! Undefined control sequence.
+\beamer@doifinframe ...nted by $(1,0,1)_r$. \itme 
+                                                  The phrase "avocado bread ...
+l.102 \end{frame}
+                 
+? 
 
-] [5
+Overfull \hbox (71.35986pt too wide) has occurred while \output is active
+ [][][][]  
+ []
 
-] [6
-
-] [7
+[4
 
 ]
 \tf@nav=\write6
@@ -855,19 +881,19 @@ Overfull \hbox (6.79999pt too wide) in paragraph at lines 67--67
 \tf@snm=\write8
 \openout8 = `presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 157.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 157.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 105.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 105.
  (./presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 157.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 157.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 105.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 105.
 Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 17708 strings out of 492167
- 334109 string characters out of 6131559
- 415494 words of memory out of 5000000
- 21660 multiletter control sequences out of 15000+600000
+ 17697 strings out of 492167
+ 334014 string characters out of 6131559
+ 415533 words of memory out of 5000000
+ 21655 multiletter control sequences out of 15000+600000
  14540 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  58i,15n,59p,798b,562s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -877,10 +903,10 @@ ts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmss8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mssi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></u
 sr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb>
-Output written on presentation.pdf (7 pages, 82652 bytes).
+Output written on presentation.pdf (4 pages, 75812 bytes).
 PDF statistics:
- 238 PDF objects out of 1000 (max. 8388607)
- 211 compressed objects within 3 object streams
- 15 named destinations out of 1000 (max. 500000)
+ 156 PDF objects out of 1000 (max. 8388607)
+ 133 compressed objects within 2 object streams
+ 9 named destinations out of 1000 (max. 500000)
  49 words of extra memory for PDF output out of 10000 (max. 10000000)
 

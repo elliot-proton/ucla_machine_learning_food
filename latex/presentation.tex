@@ -1,9 +1,9 @@
 \documentclass{beamer}
 \usetheme{Boadilla}
 
-\title{Recipe Naming Using Text Analysis}
-\author{Elliot Lehman}
-\institute{UCLA Extension}
+\title{UCLA Extension Machine Learning:\\
+	Recipe Naming Using Text Analysis}
+
 \begin{document}
 
 \begin{frame}
@@ -75,7 +75,6 @@
 			Recipe & & Title \\
 			\hline\hline
 			bread & avocado & avocado toast \\
-			\hline
 			lettuce & avocado & salad \\		
 			\hline
 		\end{tabular}
@@ -89,70 +88,18 @@
 				meaning that any recipe using ingredients in
 				this data set can be represented by a vector of
 				size 3.
-			\item The word ``avocado'' would be represented by the vector $(1,0,0)_r$, 
-				``bread'' by $(0,1,0)_r$, and lettuce by $(0,0,1)_r$
+			\item The word "avocado" would be represented by the vector $(1,0,0)_r$, 
+				"bread" by $(0,1,0)_r$, and lettuce by $(0,0,1)_r$
 		\end{itemize}
 		\item Vectors of recipes.
 		\begin{itemize}
 			\item Now that basis vectors are defined, we can add them to get recipes.
-			\item The phrase ``avocado lettuce'' is therefore represented by $(1,0,1)_r$.
-			\item The phrase ``avocado bread lettuce'' is the vector $(1,1,1)_r$.
+			\item The phrase "avocado lettuce" is therefore represented by $(1,0,1)_r$.
+			\itme The phrase "avocado bread lettuce" is the vector $(1,1,1)_r$.
 		\end{itemize}
 
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}
-	\frametitle{We have vectors... now what?}
-		EDA!!!\\
-		\medskip
-		Now that we have transformed a word based data set into a set
-		of vectors and numbers, we can start to really see what our
-		data looks like.
-
-		- highest frequency words in recipes
-		- highest frequency words in titles (good to know so we can normalize)
-		- highest frequency nouns, verbs, adjectives, etc.
-		- most related words - perhaps the most important.
-
-\end{frame}
-	
-\begin{frame}
-	\frametitle{eda continued}
-	before cleaning / dimension reduction
-	\begin{center}
-		\begin{tabular}{| c | c |}
-			\hline
-			Ingredient word & Title word \\
-			\hline \hline
-			cup & and \\
-			cup & with \\
-			teaspoon & with \\
-			chopped & and \\
-			tablespoons & and \\
-			tablespoons & with \\
-			cups & and \\
-			teaspoon & and \\
-			fresh & and \\
-			chopped & with \\
-			\hline
-
-		\end{tabular}
-	\end{center}
-\end{frame}
-
-
-
-\begin{frame}
-	\frametitle{Future improvements}
-	
-	\begin{itemize}
-		\item{Expand vocabulary, the program can only currently title
-			recipes using words seen in other titles}
-		\item{}
-		\item{}
-		\item{}
-	\end{itemize}
-\end{frame}
 
 \end{document}
